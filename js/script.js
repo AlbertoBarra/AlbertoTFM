@@ -24,7 +24,7 @@ var osm2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?acc
 
 //Layers-------------------------------------------------------------
 
-var licVar = L.geoJson(licVar).addTo(map);
+L.geoJson(redNatura, {style: style}).addTo(map);
 
 var baseLayers = {
   "Open Street Maps": osm,
