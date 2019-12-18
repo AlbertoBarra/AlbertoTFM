@@ -10,7 +10,7 @@ var osm = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?acce
   attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
   '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
   'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-  id: 'mapbox.streets'
+  id: 'mapbox.streets',
 }).addTo(map);
 
 var osm2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -24,7 +24,12 @@ var osm2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?acc
 
 //Layers-------------------------------------------------------------
 
-L.geoJson(redNatura, {style: style}).addTo(map);
+var styleRN = {
+  'color': '#ffff99',
+  'weigth': 1,
+  'opacity': 0.8
+};
+var redNaturaLayer = L.geoJSON(redNatura, {style: styleRN}).addTo(map);
 
 var baseLayers = {
   "Open Street Maps": osm,
@@ -49,5 +54,3 @@ map.addControl(new L.Control.Fullscreen({
 }));
 
 L.control.mousePosition({position: 'bottomright'}).addTo(map);
-
-//layers

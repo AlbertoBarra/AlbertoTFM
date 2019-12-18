@@ -6,15 +6,17 @@
     <meta name="author" content="Alberto Barra Parga">
     <meta name="description" content="Soto de Espinillos">
     <meta charset="UTF-8">
-    <!-- Style, mi hoja de estilo propio-->
-    <link type="text/css" rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
+
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
 
     <link href='css/L.Control.MousePosition.css' rel='stylesheet' />
     <link href='css/Control.MiniMap.css' rel='stylesheet' />
+    <!-- Style, mi hoja de estilo propio-->
+    <link type="text/css" rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div class="header">
@@ -41,11 +43,10 @@
     <div id=map>
     </div>
     <!--Leaflet scrips-->
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
-    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
-    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
 
-    <script src="https://unpkg.com/@ngageoint/leaflet-geopackage@2.0.5/dist/leaflet-geopackage.min.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 
     <script src="js/Leaflet.Spain.WMS.js"></script>
@@ -57,7 +58,7 @@
     <script type="text/javascript" src='layers/redNatura.js'></script>
     <!--JavaScript link-->
     <script type="text/javascript" src="js/script.js"></script>
-    <!-- Encuesta de satisfacción -->
+    <!-- ENCUESTA -->
     <section style="display: block;" class="body current" id="wizard-p-1" role="tabpanel" aria-labelledby="wizard-h-1" aria-hidden="false">
   		<div class="wrapper_row" style="">
   			<div class="row js_error_placement_parent step_2">
