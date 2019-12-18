@@ -10,10 +10,12 @@
     <!-- Style, mi hoja de estilo propio-->
     <link type="text/css" rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-      crossorigin=""/>
+    <link type="text/css" rel="stylesheet" href="css/leaflet.css">
 
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
+    <link href='css/L.Control.MousePosition.css' rel='stylesheet' />
+    <link href='css/Control.MiniMap.css' rel='stylesheet' />
 
   </head>
   <body>
@@ -41,10 +43,15 @@
     <div id=map>
     </div>
     <!--Leaflet scrips-->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-      crossorigin=""></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/leaflet-src.js"></script>
 
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+
+    <script src="js/Leaflet.Spain.WMS.js"></script>
+    <script src="js/Leaflet.MakiMarkers.js"></script>
+    <script src="js/Control.MiniMap.js"></script>
+    <script src='js/L.Control.MousePosition.js'></script>
 
     <!--Lincar capas-->
     <script type="text/javascript" src='layers/redNatura.js'></script>

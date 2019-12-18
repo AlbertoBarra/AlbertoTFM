@@ -43,7 +43,7 @@ var renfeAHMarker = L.marker([40.485640, -3.362811], {icon: renfeIcon}).addTo(ma
 
 //Layers-------------------------------------------------------------
 
-var sotoLocalizaLayer = L.geoJSON(sotoLocaliza).addTo(map);
+var sotoLocalizaLayer = L.geoJson(sotoLocaliza).addTo(map);
 
 var styleRN = {
   'color': '#ffff99',
@@ -51,7 +51,7 @@ var styleRN = {
   'opacity': 0.8
 };
 
-var redNaturaLayer = L.geoJSON(redNatura, {style: styleRN}).addTo(map);
+var redNaturaLayer = L.geoJson(redNatura, {style: styleRN}).addTo(map);
 
 
 var baseLayers = {
