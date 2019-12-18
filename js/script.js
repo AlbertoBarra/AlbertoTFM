@@ -3,7 +3,7 @@ var map = L.map('map', {
   zoomControl: false,
   maxZoom: 18,
   minZoom: 0,
-}).setView([40.459707, -3.427715], 15);
+}).setView([40.459707, -3.427715], 13);
 
 // Add a tile layer to the map (Mapbox Streets tile layer)
 var osm = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -22,11 +22,11 @@ var osm2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?acc
   maxZoom: 9
 });
 
-//Layers-------------------------------------------------------------
+//Markers-------------------------------------------------------------
 
 var renfeIcon = L.icon({
   iconUrl: "img/renfe.png",
-  iconSize: [20, 20],
+  iconSize: [17, 17],
 })
 
 var renfeAtochaPop = "<a href='https://www.redtransporte.com/madrid/cercanias-renfe/horarios.html'target='_blank'>Atocha</a>"
@@ -41,6 +41,9 @@ var renfeSotoMarker = L.marker([40.463766, -3.441447], {icon: renfeIcon}).addTo(
 var renfeAHPop = "<a href='https://www.redtransporte.com/madrid/cercanias-renfe/horarios.html'target='_blank'>Alcalá de Henares</a>"
 var renfeAHMarker = L.marker([40.485640, -3.362811], {icon: renfeIcon}).addTo(map).bindPopup(renfeAHPop)
 
+//Layers-------------------------------------------------------------
+
+var sotoLocalizaLayer = L.geoJSON(sotoLocaliza).addTo(map);
 
 var styleRN = {
   'color': '#ffff99',
@@ -50,9 +53,11 @@ var styleRN = {
 
 var redNaturaLayer = L.geoJSON(redNatura, {style: styleRN}).addTo(map);
 
+
 var baseLayers = {
-  "Open Street Maps": osm,
+
   "PNOA Máx. Actualidad": Spain_PNOA_Ortoimagen,
+  "Open Street Maps": osm,
 };
 
 var overlayers = {
