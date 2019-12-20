@@ -20,16 +20,22 @@ body {
   padding: 14px 16px;
   text-decoration: none;
 }
+#main {
+  float: left;
+  width: 80%;
+  background-color: #BCF5A9;
+  text-align: left;
+}
+#sidebar {
+  float: left;
+  width: 20%;
+  background-color: #BCF5A9;
+  text-align: left;
+}
+#bottom {
+  clear: both;
+}
 #map {
   width: 700px;
   height: 500px;
 };
-.custom .leaflet-popup-tip,
-.custom .leaflet-popup-content-wrapper {
-    background: #addbff;
-    color: #ffffff;
-}
-.rigth {
-  float: right;
-  padding: 20px;
-}

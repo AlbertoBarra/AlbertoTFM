@@ -28,24 +28,28 @@
       <a href="html/info.html">Información</a>
       <a href="html/contacto.html">Contacto</a>
     </div>
-    <div class="right">
+    <div class="main">
+      <div id=map>
+      </div>
+    </div>
+  <!--VISOR CARTOGRÁFICO-->
+    <div class="sidebar">
       <h4>¿Dónde estamos?</h4>
       <p>El paraje de Soto de Espinillos está consolidado como un elemento <br>
       del paisaje crucial en lo que a conectividad ecológica se refiere, ya que <br>
       se comporta como nexo entre los diferentes componentes de la Red Natura 2000 <br>
       localizados en la Comunidad de Madrid y Castilla-La Mancha.</p>
-      <h4>Un valor histórico y ambienal</h4>
+      <h4>Un valor histórico y ambiental</h4>
       <p>Hipotético emplazamiento de una aldea medieval llamada Castil del Lobos, fue durante <br>
         el siglo XX una importante finca agraria que empleó a muchos vecinos torrejoneros. Este <br>
         espacio dio lugar al último vino elaborado en Alcalá: el Tinto de Espinillos </p>
     </div>
-  <!--VISOR CARTOGRÁFICO-->
-    <div id=map>
-    </div>
+
     <!--Leaflet scrips-->
     <script src="js/leaflet.js"></script>
     <script src="js/leaflet-src.js"></script>
 
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 
     <script src="js/Leaflet.Spain.WMS.js"></script>
@@ -60,34 +64,37 @@
     <script type="text/javascript" src="js/script.js"></script>
 
     <!-- ENCUESTA -->
-    <section style="display: block;" class="body current" id="wizard-p-1" role="tabpanel" aria-labelledby="wizard-h-1" aria-hidden="false">
-  		<div class="wrapper_row" style="">
-  			<div class="row js_error_placement_parent step_2">
-  				  <div class="m_header_step" data-step="2">
-  					<h2 class="js_error_placement quizz_question required_field">¿Qué valoración le darías al destino que has visitado?</h2>
-  				  </div>
-  				  <div class="form_fields star_numbers_row" data-score-name="participation[promo_response_attributes]response_11730">
-  						<ul class="m_options_list js_star_numbers">
-  							<li class="star_number_0 star_number">
-  								<input class="m_option_input js_quizz_radio" type="radio" value="0" name="participation[promo_response_attributes][response_11730]" id="participation_promo_response_attributes_response_11730_0">
-  								<label class="m_option_label" for="participation_promo_response_attributes_response_11730_0">0</label>
-  								<span class="b_legend">Muy negativa</span>
-  							</li>
-  							<li class="star_number_1 star_number">
-  								<input class="m_option_input js_quizz_radio" type="radio" value="5" name="participation[promo_response_attributes][response_11730]" id="participation_promo_response_attributes_response_11730_1">
-  								<label class="m_option_label" for="participation_promo_response_attributes_response_11730_1">5</label>
-                  <span class="l_legend">Indiferente</span>
-                </li>
-  							<li class="star_number_10 star_number">
-  								<input class="m_option_input js_quizz_radio" type="radio" value="10" name="participation[promo_response_attributes][response_11730]" id="participation_promo_response_attributes_response_11730_10">
-  								<label class="m_option_label" for="participation_promo_response_attributes_response_11730_10">10</label>
-  			          <span class="l_legend">Muy positiva</span>
-  							</li>
-  						</ul>
-  				  </div>
-  			</div><!-- - class=row -->
-  		</div><!-- - class=wrapper_row -->
-  	</section>
+    <div class="bottom">
+      <section style="display: block;" class="body current" id="wizard-p-1" role="tabpanel" aria-labelledby="wizard-h-1" aria-hidden="false">
+    		<div class="wrapper_row" style="">
+    			<div class="row js_error_placement_parent step_2">
+    				  <div class="m_header_step" data-step="2">
+    					<h2 class="js_error_placement quizz_question required_field">¿Qué valoración le darías al destino que has visitado?</h2>
+    				  </div>
+    				  <div class="form_fields star_numbers_row" data-score-name="participation[promo_response_attributes]response_11730">
+    						<ul class="m_options_list js_star_numbers">
+    							<li class="star_number_0 star_number">
+    								<input class="m_option_input js_quizz_radio" type="radio" value="0" name="participation[promo_response_attributes][response_11730]" id="participation_promo_response_attributes_response_11730_0">
+    								<label class="m_option_label" for="participation_promo_response_attributes_response_11730_0">0</label>
+    								<span class="b_legend">Muy negativa</span>
+    							</li>
+    							<li class="star_number_1 star_number">
+    								<input class="m_option_input js_quizz_radio" type="radio" value="5" name="participation[promo_response_attributes][response_11730]" id="participation_promo_response_attributes_response_11730_1">
+    								<label class="m_option_label" for="participation_promo_response_attributes_response_11730_1">5</label>
+                    <span class="l_legend">Indiferente</span>
+                  </li>
+    							<li class="star_number_10 star_number">
+    								<input class="m_option_input js_quizz_radio" type="radio" value="10" name="participation[promo_response_attributes][response_11730]" id="participation_promo_response_attributes_response_11730_10">
+    								<label class="m_option_label" for="participation_promo_response_attributes_response_11730_10">10</label>
+    			          <span class="l_legend">Muy positiva</span>
+    							</li>
+    						</ul>
+    				  </div>
+    			</div><!-- - class=row -->
+    		</div><!-- - class=wrapper_row -->
+    	</section>
+    </div>
+
     <footer style="font-size: 2; font-family: Helvetica; text-align:center">
       Ayuntamiento de Alcalá de Henares - Universidad de Alcalá
     </footer>

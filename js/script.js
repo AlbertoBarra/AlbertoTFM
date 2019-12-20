@@ -109,13 +109,22 @@ var renfeGuadMarker = L.marker([40.644233, -3.182273], {icon: renfeIcon}).bindPo
 
 var renfeStations = L.layerGroup([renfeAtochaMarker, renfeEntMarker, renfePozoMarker, renfeVkMarker, renfeSantMarker,
                                   renfeVicMarker, renfeCosMarker, renfeSFMarker, renfeTJMarker, renfeSotoMarker,
-                                  renfeGarMarker, renfeAHMarker, renfeAHUMarker, renfeMecoMarker, renfeAzqMarker, renfeGuadMarker]).addTo(map)
+                                  renfeGarMarker, renfeAHMarker, renfeAHUMarker, renfeMecoMarker, renfeAzqMarker, renfeGuadMarker]).addTo(map);
 //marcador de las ruinas
 
-var ruinasPop = "<a href='https://www.redtransporte.com/madrid/cercanias-renfe/horarios.html'target='_blank'>Edificio</a><br/><img src='img/finca.jpg' width= '220px'height='140'/>"
-var ruinasMarker = L.marker([40.459922, -3.424866], {icon: renfeIcon}).bindPopup(ruinasPop).addTo(map)
+L.MakiMarkers.accessToken="pk.eyJ1IjoiYWxiZXJ0b2JhcnJhIiwiYSI6ImNqc20xdXEzZDM0eG80NG1sMnFyejlhbzMifQ.pYqduV6nou2dhvI1Xvkc0A";
 
+var ruinasPop = L.MakiMarkers.icon({icon:"marker", color:"#0066ff",size:"m"});
+var ruinasMarker = L.marker([40.459922, -3.424866],{icon: ruinasPop}).bindPopup("<b><a href='http://www.patrimoniocomplutense.es/lp/32003.htm'target='_blank'>Complejo rural de Espinillos</a><br/><br/><img src='img/finca.jpg' width= '220px'height='140'/></b>");
+
+var interestPlaces = L.layerGroup([ruinasMarker]).addTo(map);
 //Layers-------------------------------------------------------------
+
+//var ruta1Layer = omnivore.kml('C:/Users/albertobarra/Documents/GitHub/AlbertoTFM/layers/ruta1.kml')
+//    .on('ready', function() {
+//        map.fitBounds(ruta1Layer.getBounds());
+//    })
+//    .addTo(map);
 
 var sotoLocalizaLayer = L.geoJson(sotoLocaliza).addTo(map);
 
@@ -126,7 +135,6 @@ var styleRN = {
 };
 
 var redNaturaLayer = L.geoJson(redNatura, {style: styleRN}).addTo(map);
-
 
 var baseLayers = {
 
