@@ -112,8 +112,9 @@ var renfeStations = L.layerGroup([renfeAtochaMarker, renfeEntMarker, renfePozoMa
                                   renfeGarMarker, renfeAHMarker, renfeAHUMarker, renfeMecoMarker, renfeAzqMarker, renfeGuadMarker]).addTo(map)
 //marcador de las ruinas
 
-var ruinasPop = "<a href='https://www.redtransporte.com/madrid/cercanias-renfe/horarios.html'target='_blank'>Guadalajada</a>"
-var ruinasMarker = L.marker([40.459674, -3.424726], {icon: renfeIcon}).bindPopup(ruinasPop)
+var ruinasPop = "<a href='https://www.redtransporte.com/madrid/cercanias-renfe/horarios.html'target='_blank'>Edificio</a><br/><img src='img/finca.jpg' width= '220px'height='140'/>"
+var ruinasMarker = L.marker([40.459922, -3.424866], {icon: renfeIcon}).bindPopup(ruinasPop).addTo(map)
+
 //Layers-------------------------------------------------------------
 
 var sotoLocalizaLayer = L.geoJson(sotoLocaliza).addTo(map);
