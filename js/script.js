@@ -126,15 +126,13 @@ var interestPlaces = L.layerGroup([ruinasMarker]).addTo(map);
 //    })
 //    .addTo(map);
 
-var sotoLocalizaLayer = L.geoJson(sotoLocaliza).addTo(map);
+var sotoLocalizaVar = L.geoJson(sotoLocaliza).addTo(map);
 
 var styleRN = {
   'color': '#ffff99',
   'weigth': 1,
   'opacity': 0.8
 };
-
-var redNaturaLayer = L.geoJson(redNatura, {style: styleRN}).addTo(map);
 
 var baseLayers = {
 
