@@ -118,6 +118,50 @@ var ruinasPop = L.MakiMarkers.icon({icon:"marker", color:"#0066ff",size:"m"});
 var ruinasMarker = L.marker([40.459922, -3.424866],{icon: ruinasPop}).bindPopup("<b><a href='http://www.patrimoniocomplutense.es/lp/32003.htm'target='_blank'>Complejo rural de Espinillos</a><br/><br/><img src='img/finca.jpg' width= '220px'height='140'/></b>");
 
 var interestPlaces = L.layerGroup([ruinasMarker]).addTo(map);
+//Layers styles------------------------------------------------------
+
+var rnStyle = function(feature) {
+    switch (feature.properties.LIC_NAME) {
+      case 'Cuencas de los ríos Jarama y Henares': return {color: "#d7ad26", opacity: 1}
+      case 'Vegas, cuestas y páramos del sureste de Madrid': return {color: "#6ee10d", opacity: 1}
+    }
+  }
+  function popup(feature, layer) {
+  if (feature.properties && feature.properties.LIC_NAME) {
+    layer.bindPopup(feature.properties.LIC_NAME);
+  }
+};
+
+var ecosistemasStyle = function(feature) {
+    switch (feature.properties.DS_ECOSIST) {
+      case 'Recintos urbanos': return {color: "#d7ad26", opacity: 1}
+      case 'Barbechos y secanos': return {color: "#6ee10d", opacity: 1}
+      case 'Cuestas y cortados yesíferos': return {color: "#d7ad26", opacity: 1}
+      case 'Embalses': return {color: "#d7ad26", opacity: 1}
+      case 'Encinar sobre arenas': return {color: "#d7ad26", opacity: 1}
+      case 'Hayedo': return {color: "#d7ad26", opacity: 1}
+      case 'Matorral de altura (Piornal)': return {color: "#d7ad26", opacity: 1}
+      case 'Melojar': return {color: "#d7ad26", opacity: 1}
+      case 'Otros pinares': return {color: "#d7ad26", opacity: 1}
+      case 'Pinar de montaña': return {color: "#d7ad26", opacity: 1}
+      case 'Pinar de pino piñonero': return {color: "#d7ad26", opacity: 1}
+      case 'Recintos urbanos': return {color: "#d7ad26", opacity: 1}
+      case 'Sotos y riberas': return {color: "#d7ad26", opacity: 1}
+      case 'Zonas palustres': return {color: "#d7ad26", opacity: 1}
+    }
+  }
+  function popup(feature, layer) {
+  if (feature.properties && feature.properties.DS_ECOSIST) {
+    layer.bindPopup(feature.properties.DS_ECOSIST);
+  }
+};
+
+var limAdmStyle = {
+  color: 'black',
+  fill: false,
+  weight: 3,
+}
+
 //Layers-------------------------------------------------------------
 
 //var ruta1Layer = omnivore.kml('C:/Users/albertobarra/Documents/GitHub/AlbertoTFM/layers/ruta1.kml')
@@ -127,23 +171,18 @@ var interestPlaces = L.layerGroup([ruinasMarker]).addTo(map);
 //    .addTo(map);
 
 var sotoLocalizaVar = L.geoJson(sotoLocaliza).addTo(map);
+var limAdmVar = L.geoJson(lim_adm, {style: limAdmStyle}).addTo(map);
 
-var styleRN = {
-  'color': '#ffff99',
-  'weigth': 1,
-  'opacity': 0.8
-};
-
+var redNaturaVar = L.geoJson(redNatura, {style: rnStyle, onEachFeature: popup});
+var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {style: ecosistemasStyle});
 var baseLayers = {
-
-  "PNOA Máx. Actualidad": Spain_PNOA_Ortoimagen,
+  "Fotografía aérea (PNOA)": Spain_PNOA_Ortoimagen,
   "Open Street Maps": osm,
 };
 
 var overlayers = {
-  "Catastro": Spain_Catastro,
-  "Unidades administrativas": Spain_UnidadAdministrativa,
-  "IGN Base": Spain_IGNBase,
+  "Red Natura 2000": redNaturaVar,
+  "Ecosistemas": ecosistemasCAMVar,
 };
 
 L.control.layers(baseLayers, overlayers,{collapsed:false}).addTo(map);
