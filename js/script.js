@@ -1,5 +1,5 @@
 // Coordenadas para el maxbound del map principal
-var corner1 = L.latLng(40.761417, -3.808321),
+var corner1 = L.latLng(40.61417, -3.808321),
     corner2 = L.latLng(40.188960, -3.006673),
     bounds = L.latLngBounds(corner1, corner2);
 
@@ -117,7 +117,7 @@ L.MakiMarkers.accessToken="pk.eyJ1IjoiYWxiZXJ0b2JhcnJhIiwiYSI6ImNqc20xdXEzZDM0eG
 var ruinasPop = L.MakiMarkers.icon({icon:"marker", color:"#0066ff",size:"m"});
 var ruinasMarker = L.marker([40.459922, -3.424866],{icon: ruinasPop}).bindPopup("<b><a href='http://www.patrimoniocomplutense.es/lp/32003.htm'target='_blank'>Complejo rural de Espinillos</a><br/><br/><img src='img/finca.jpg' width= '220px'height='140'/></b>");
 
-var interestPlaces = L.layerGroup([ruinasMarker]).addTo(map);
+var interes = L.layerGroup([ruinasMarker]);
 //Layers styles------------------------------------------------------
 
 var rnStyle = function(feature) {
@@ -126,7 +126,7 @@ var rnStyle = function(feature) {
       case 'Vegas, cuestas y páramos del sureste de Madrid': return {color: "#6ee10d", opacity: 1}
     }
   }
-  function popup(feature, layer) {
+  function popupr(feature, layer) {
   if (feature.properties && feature.properties.LIC_NAME) {
     layer.bindPopup(feature.properties.LIC_NAME);
   }
@@ -134,20 +134,58 @@ var rnStyle = function(feature) {
 
 var ecosistemasStyle = function(feature) {
     switch (feature.properties.DS_ECOSIST) {
-      case 'Recintos urbanos': return {color: "#d7ad26", opacity: 1}
-      case 'Barbechos y secanos': return {color: "#6ee10d", opacity: 1}
-      case 'Cuestas y cortados yesíferos': return {color: "#d7ad26", opacity: 1}
-      case 'Embalses': return {color: "#d7ad26", opacity: 1}
-      case 'Encinar sobre arenas': return {color: "#d7ad26", opacity: 1}
-      case 'Hayedo': return {color: "#d7ad26", opacity: 1}
-      case 'Matorral de altura (Piornal)': return {color: "#d7ad26", opacity: 1}
-      case 'Melojar': return {color: "#d7ad26", opacity: 1}
-      case 'Otros pinares': return {color: "#d7ad26", opacity: 1}
-      case 'Pinar de montaña': return {color: "#d7ad26", opacity: 1}
-      case 'Pinar de pino piñonero': return {color: "#d7ad26", opacity: 1}
-      case 'Recintos urbanos': return {color: "#d7ad26", opacity: 1}
-      case 'Sotos y riberas': return {color: "#d7ad26", opacity: 1}
-      case 'Zonas palustres': return {color: "#d7ad26", opacity: 1}
+      case 'Recintos urbanos': return {
+        weight: 1,
+        color:"#grey",
+        opacity: 1}
+      case 'Barbechos y secanos': return {
+        weight: 1,
+        color: "#e9a02d",
+        opacity: 1}
+      case 'Cuestas y cortados yesíferos': return {
+        weight: 1,
+        color: "#d8e0e9",
+        opacity: 1}
+      case 'Embalses': return {
+        weight: 1,
+        color: "#0e6ecc",
+        opacity: 1}
+      case 'Encinar sobre arenas': return {
+        weight: 1,
+        color: "#76b308",
+        opacity: 1}
+      case 'Hayedo': return {
+        weight: 1,
+        color: "#fe9b5b",
+        opacity: 1}
+      case 'Matorral de altura (Piornal)': return {
+        weight: 1,
+        color: "#d7ad26",
+        opacity: 1}
+      case 'Melojar': return {
+        weight: 1,
+        color: "#b36408",
+        opacity: 1}
+      case 'Otros pinares': return {
+        weight: 1,
+        color: "#92d726",
+        opacity: 1}
+      case 'Pinar de montaña': return {
+        weight: 1,
+        color: "#16ff00",
+        opacity: 1}
+      case 'Pinar de pino piñonero': return {
+        weight: 1,
+        color: "#0fb000",
+        opacity: 1}
+      case 'Sotos y riberas': return {
+        weight: 1,
+        color: "#78cc9f",
+        opacity: 1}
+      case 'Zonas palustres': return {
+        weight: 1,
+        color: "#ffb4c7",
+        opacity: 1}
     }
   }
   function popup(feature, layer) {
@@ -163,6 +201,7 @@ var limAdmStyle = {
 }
 
 //Layers-------------------------------------------------------------
+//++++++//
 
 //var ruta1Layer = omnivore.kml('C:/Users/albertobarra/Documents/GitHub/AlbertoTFM/layers/ruta1.kml')
 //    .on('ready', function() {
@@ -173,14 +212,18 @@ var limAdmStyle = {
 var sotoLocalizaVar = L.geoJson(sotoLocaliza).addTo(map);
 var limAdmVar = L.geoJson(lim_adm, {style: limAdmStyle}).addTo(map);
 
-var redNaturaVar = L.geoJson(redNatura, {style: rnStyle, onEachFeature: popup});
-var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {style: ecosistemasStyle});
+var redNaturaVar = L.geoJson(redNatura, {style: rnStyle, onEachFeature: popupr});
+var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {style: ecosistemasStyle, onEachFeature: popup});
+
+//Control de capas---------------------------------------------------
+
 var baseLayers = {
   "Fotografía aérea (PNOA)": Spain_PNOA_Ortoimagen,
   "Open Street Maps": osm,
 };
 
 var overlayers = {
+  "Lugares de interés": interes,
   "Red Natura 2000": redNaturaVar,
   "Ecosistemas": ecosistemasCAMVar,
 };
