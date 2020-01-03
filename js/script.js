@@ -30,27 +30,27 @@ var osm2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?acc
 });
 //Localización en el mapa
 
-map.locate({watch: true, setView: true, maxZoom: 16});
-
-var azulIcon = L.icon({
-  iconUrl: "img/azul.png",
-  iconSize: [20, 20],
-})
-
-function onLocationFound(e) {
-    var radius = e.accuracy;
-
-    L.marker(e.latlng, {icon:azulIcon}).addTo(map)
-        .bindPopup("Te encuentras a " + radius + " metros de este punto");
-    L.circle(e.latlng, radius).addTo(map);
-}
-
-map.on('locationfound', onLocationFound);
-
-function onLocationError(e) {
-    alert(e.message);
-}
-map.on('locationerror', onLocationError);
+////////map.locate({watch: true, setView: true, maxZoom: 16});
+////////
+////////var azulIcon = L.icon({
+////////  iconUrl: "img/azul.png",
+////////  iconSize: [20, 20],
+////////})
+////////
+////////function onLocationFound(e) {
+////////    var radius = e.accuracy;
+////////
+////////    L.marker(e.latlng, {icon:azulIcon}).addTo(map)
+////////        .bindPopup("Te encuentras a " + radius + " metros de este punto");
+////////    L.circle(e.latlng, radius).addTo(map);
+////////}
+////////
+////////map.on('locationfound', onLocationFound);
+////////
+////////function onLocationError(e) {
+////////    alert(e.message);
+////////}
+////////map.on('locationerror', onLocationError);
 
 //Marcadores linea de RENFE
 
@@ -228,9 +228,12 @@ var overlayers = {
   "Ecosistemas": ecosistemasCAMVar,
 };
 
-L.control.layers(baseLayers, overlayers,{collapsed:false}).addTo(map);
+L.control.layers(baseLayers, overlayers,{
+  position: 'topright',
+  collapsed:true
+}).addTo(map);
 
-//Control del minimapa
+//Control de plugins-------------------------------------------------
 var miniMap = new L.Control.MiniMap(osm2, {toggleDisplay: true, position: 'bottomright'}).addTo(map);
 
 L.control.scale({maxWidth: 100, metric: true, imperial: false, position: 'bottomleft'}).addTo(map);
