@@ -109,7 +109,7 @@ var renfeGuadMarker = L.marker([40.644233, -3.182273], {icon: renfeIcon}).bindPo
 
 var renfeStations = L.layerGroup([renfeAtochaMarker, renfeEntMarker, renfePozoMarker, renfeVkMarker, renfeSantMarker,
                                   renfeVicMarker, renfeCosMarker, renfeSFMarker, renfeTJMarker, renfeSotoMarker,
-                                  renfeGarMarker, renfeAHMarker, renfeAHUMarker, renfeMecoMarker, renfeAzqMarker, renfeGuadMarker]).addTo(map);
+                                  renfeGarMarker, renfeAHMarker, renfeAHUMarker, renfeMecoMarker, renfeAzqMarker, renfeGuadMarker]);
 //marcador de las ruinas
 
 L.MakiMarkers.accessToken="pk.eyJ1IjoiYWxiZXJ0b2JhcnJhIiwiYSI6ImNqc20xdXEzZDM0eG80NG1sMnFyejlhbzMifQ.pYqduV6nou2dhvI1Xvkc0A";
@@ -117,7 +117,8 @@ L.MakiMarkers.accessToken="pk.eyJ1IjoiYWxiZXJ0b2JhcnJhIiwiYSI6ImNqc20xdXEzZDM0eG
 var ruinasPop = L.MakiMarkers.icon({icon:"marker", color:"#0066ff",size:"m"});
 var ruinasMarker = L.marker([40.459922, -3.424866],{icon: ruinasPop}).bindPopup("<b><a href='http://www.patrimoniocomplutense.es/lp/32003.htm'target='_blank'>Complejo rural de Espinillos</a><br/><br/><img src='img/finca.jpg' width= '220px'height='140'/></b>");
 
-var interes = L.layerGroup([ruinasMarker]);
+var interes = L.layerGroup([ruinasMarker, renfeStations]);
+
 //Layers styles------------------------------------------------------
 var sotoLocalizaStyle = {
   color: 'red',
@@ -131,10 +132,29 @@ var limAdmStyle = {
   weight: 3,
 };
 
-var rnStyle = function(feature) {
+var CLC2018_urbano_corredor_disStyle = {
+  color: 'black',
+  fillColor: '#A06192',
+  weight: 2.5,
+  fillOpacity: 0.5,
+}
+
+var rnStyle = function getColorEco(feature) {
     switch (feature.properties.LIC_NAME) {
-      case 'Cuencas de los ríos Jarama y Henares': return {color: "#d7ad26", opacity: 1}
-      case 'Vegas, cuestas y páramos del sureste de Madrid': return {color: "#6ee10d", opacity: 1}
+      case 'Cuencas de los ríos Jarama y Henares': return {
+        color: "#004205",
+        opacity: 1,
+        fillOpacity: 0.8,
+        fillColor: '#d7ad26',
+        weight: 1.5
+      }
+      case 'Vegas, cuestas y páramos del sureste de Madrid': return {
+        color: "#004205",
+        opacity: 1,
+        fillOpacity: 0.8,
+        fillColor: "#6ee10d",
+        weight: 1.5
+      }
     }
   }
   function popupRN(feature, layer) {
@@ -147,59 +167,85 @@ var ecosistemasStyle = function(feature) {
     switch (feature.properties.DS_ECOSIST) {
       case 'Recintos urbanos': return {
         weight: 1,
-        color:"#grey",
-        opacity: 1}
+        color:"#A06192",
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Barbechos y secanos': return {
         weight: 1,
         color: "#e9a02d",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Cuestas y cortados yesíferos': return {
         weight: 1,
         color: "#d8e0e9",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Embalses': return {
         weight: 1,
         color: "#0e6ecc",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Encinar sobre arenas': return {
         weight: 1,
         color: "#76b308",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Hayedo': return {
         weight: 1,
         color: "#fe9b5b",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Matorral de altura (Piornal)': return {
         weight: 1,
         color: "#d7ad26",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Melojar': return {
         weight: 1,
         color: "#b36408",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Otros pinares': return {
         weight: 1,
         color: "#92d726",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Pinar de montaña': return {
         weight: 1,
         color: "#16ff00",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Pinar de pino piñonero': return {
         weight: 1,
         color: "#0fb000",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Sotos y riberas': return {
         weight: 1,
         color: "#78cc9f",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
       case 'Zonas palustres': return {
         weight: 1,
         color: "#ffb4c7",
-        opacity: 1}
+        opacity: 1,
+        fillOpacity: 0.8,
+      }
     }
   }
-  function popup(feature, layer) {
+  function popupEco(feature, layer) {
   if (feature.properties && feature.properties.DS_ECOSIST) {
     layer.bindPopup(feature.properties.DS_ECOSIST);
   }
@@ -227,6 +273,12 @@ var lagunasStyle = {
   opacity: 1,
   weight:3,
 };
+
+var A2Style ={
+  opacity: 0.8,
+  color: 'red',
+  weight: 3,
+};
 //Layers-------------------------------------------------------------
 //++++++//
 
@@ -241,13 +293,19 @@ var limAdmVar = L.geoJson(lim_adm, {style: limAdmStyle}).addTo(map);
 
 //hidrografia
 var RIOpolVAR = L.geoJson(RIOpol, {style: RIOpolStyle});
-var RIOlineVAR = L.geoJson(RIOline, {style: RIOlineStyle, onEachFeature: popupRIO})
-var lagunasVAR = L.geoJson(lagunas, {style: lagunasStyle})
+var RIOlineVAR = L.geoJson(RIOline, {style: RIOlineStyle, onEachFeature: popupRIO});
+var lagunasVAR = L.geoJson(lagunas, {style: lagunasStyle});
 
 var hidrografia = L.layerGroup([RIOpolVAR, RIOlineVAR, lagunasVAR]).addTo(map);
 
+//humano
+var CLC2018_urbano_corredor_disVAR = L.geoJson(CLC2018_urbano_corredor_dis, {style: CLC2018_urbano_corredor_disStyle}).addTo(map)
+var A2Var = L.geoJson(A2, {style: A2Style}).addTo(map);
+
+
+//medio ambiente
 var redNaturaVar = L.geoJson(redNatura, {style: rnStyle, onEachFeature: popupRN});
-var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {style: ecosistemasStyle, onEachFeature: popup});
+var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {style: ecosistemasStyle, onEachFeature: popupEco});
 
 //Control de capas---------------------------------------------------
 
