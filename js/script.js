@@ -1,13 +1,13 @@
 // Coordenadas para el maxbound del map principal
-var corner1 = L.latLng(40.61417, -3.808321),
-    corner2 = L.latLng(40.188960, -3.006673),
+var corner1 = L.latLng(40.67417, -3.808321),
+    corner2 = L.latLng(40.228960, -3.106673),
     bounds = L.latLngBounds(corner1, corner2);
 
 // Initialize the map and set its view to geographical limits of El Hierro
 var map = L.map('map', {
   zoomControl: true,
   maxZoom: 18,
-  minZoom: 10,
+  minZoom: 11,
   maxBounds: bounds,
 }).setView([40.459707, -3.427715], 13);
 
@@ -119,6 +119,17 @@ var ruinasMarker = L.marker([40.459922, -3.424866],{icon: ruinasPop}).bindPopup(
 
 var interes = L.layerGroup([ruinasMarker]);
 //Layers styles------------------------------------------------------
+var sotoLocalizaStyle = {
+  color: 'red',
+  opacity: 0.8,
+  weight: 3,
+};
+
+var limAdmStyle = {
+  color: 'black',
+  fill: false,
+  weight: 3,
+};
 
 var rnStyle = function(feature) {
     switch (feature.properties.LIC_NAME) {
@@ -126,7 +137,7 @@ var rnStyle = function(feature) {
       case 'Vegas, cuestas y páramos del sureste de Madrid': return {color: "#6ee10d", opacity: 1}
     }
   }
-  function popupr(feature, layer) {
+  function popupRN(feature, layer) {
   if (feature.properties && feature.properties.LIC_NAME) {
     layer.bindPopup(feature.properties.LIC_NAME);
   }
@@ -194,12 +205,28 @@ var ecosistemasStyle = function(feature) {
   }
 };
 
-var limAdmStyle = {
-  color: 'black',
-  fill: false,
-  weight: 3,
-}
+var RIOpolStyle = {
+  color: '#3B90F7',
+  opacity: 1,
+  weight:3,
+};
 
+var RIOlineStyle = {
+  color: '#3B90F7',
+  opacity: 1,
+  weight:1.5,
+}
+function popupRIO(feature, layer) {
+if (feature.properties && feature.properties.ETIQUETA) {
+  layer.bindPopup(feature.properties.ETIQUETA);
+  }
+};
+
+var lagunasStyle = {
+  color: '#3B90F7',
+  opacity: 1,
+  weight:3,
+};
 //Layers-------------------------------------------------------------
 //++++++//
 
@@ -209,10 +236,17 @@ var limAdmStyle = {
 //    })
 //    .addTo(map);
 
-var sotoLocalizaVar = L.geoJson(sotoLocaliza).addTo(map);
+var sotoLocalizaVar = L.geoJson(sotoLocaliza, {style: sotoLocalizaStyle}).addTo(map);
 var limAdmVar = L.geoJson(lim_adm, {style: limAdmStyle}).addTo(map);
 
-var redNaturaVar = L.geoJson(redNatura, {style: rnStyle, onEachFeature: popupr});
+//hidrografia
+var RIOpolVAR = L.geoJson(RIOpol, {style: RIOpolStyle});
+var RIOlineVAR = L.geoJson(RIOline, {style: RIOlineStyle, onEachFeature: popupRIO})
+var lagunasVAR = L.geoJson(lagunas, {style: lagunasStyle})
+
+var hidrografia = L.layerGroup([RIOpolVAR, RIOlineVAR, lagunasVAR]).addTo(map);
+
+var redNaturaVar = L.geoJson(redNatura, {style: rnStyle, onEachFeature: popupRN});
 var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {style: ecosistemasStyle, onEachFeature: popup});
 
 //Control de capas---------------------------------------------------
