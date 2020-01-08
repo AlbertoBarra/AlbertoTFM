@@ -3,7 +3,7 @@ var corner1 = L.latLng(40.67417, -3.808321),
     corner2 = L.latLng(40.228960, -3.106673),
     bounds = L.latLngBounds(corner1, corner2);
 
-// Initialize the map and set its view to geographical limits of El Hierro
+// inicializar mapa
 var map = L.map('map', {
   zoomControl: true,
   maxZoom: 18,
@@ -11,13 +11,13 @@ var map = L.map('map', {
   maxBounds: bounds,
 }).setView([40.459707, -3.427715], 13);
 
-// Add a tile layer to the map (Mapbox Streets tile layer)
+// añadir la capa base para el mapa principal y el minimapa
 
-var osm = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+var outmap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+  attribution: 'Map data &copy; <a href="https://outdoormaps.eu/">OutdoorsMaps</a> contributors, ' +
   '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
   'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-  id: 'mapbox.streets',
+  id: 'mapbox.outdoors',
 }).addTo(map);
 
 var osm2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -28,29 +28,29 @@ var osm2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?acc
   minZoom: 8,
   maxZoom: 8
 });
-//Localización en el mapa
+//Localización del usuario en el mapa
 
-////////map.locate({watch: true, setView: true, maxZoom: 16});
-////////
-////////var azulIcon = L.icon({
-////////  iconUrl: "img/azul.png",
-////////  iconSize: [20, 20],
-////////})
-////////
-////////function onLocationFound(e) {
-////////    var radius = e.accuracy;
-////////
-////////    L.marker(e.latlng, {icon:azulIcon}).addTo(map)
-////////        .bindPopup("Te encuentras a " + radius + " metros de este punto");
-////////    L.circle(e.latlng, radius).addTo(map);
-////////}
-////////
-////////map.on('locationfound', onLocationFound);
-////////
-////////function onLocationError(e) {
-////////    alert(e.message);
-////////}
-////////map.on('locationerror', onLocationError);
+////////////////map.locate({watch: true, setView: true, maxZoom: 16});
+////////////////
+////////////////var azulIcon = L.icon({
+////////////////  iconUrl: "img/azul.png",
+////////////////  iconSize: [20, 20],
+////////////////})
+////////////////
+////////////////function onLocationFound(e) {
+////////////////    var radius = e.accuracy;
+////////////////
+////////////////    L.marker(e.latlng, {icon:azulIcon}).addTo(map)
+////////////////        .bindPopup("Te encuentras a " + radius + " metros de este punto");
+////////////////    L.circle(e.latlng, radius).addTo(map);
+////////////////}
+////////////////
+////////////////map.on('locationfound', onLocationFound);
+////////////////
+////////////////function onLocationError(e) {
+////////////////    alert(e.message);
+////////////////}
+////////////////map.on('locationerror', onLocationError);
 
 //Marcadores linea de RENFE
 
@@ -271,7 +271,7 @@ if (feature.properties && feature.properties.ETIQUETA) {
 var lagunasStyle = {
   color: '#3B90F7',
   opacity: 1,
-  weight:3,
+  weight:1,
 };
 
 var A2Style ={
@@ -279,14 +279,20 @@ var A2Style ={
   color: 'red',
   weight: 3,
 };
+
+var FFCCStyle = {
+  color: 'black',
+  weight: 3,
+};
+
 //Layers-------------------------------------------------------------
 //++++++//
 
-//var ruta1Layer = omnivore.kml('C:/Users/albertobarra/Documents/GitHub/AlbertoTFM/layers/ruta1.kml')
-//    .on('ready', function() {
-//        map.fitBounds(ruta1Layer.getBounds());
-//    })
-//    .addTo(map);
+//////////////////var ruta1Layer = omnivore.kml('C:/Users/albertobarra/Documents/GitHub/AlbertoTFM/layers/ruta1.kml')
+//////////////////    .on('ready', function() {
+//////////////////        map.fitBounds(ruta1Layer.getBounds());
+//////////////////    })
+//////////////////    .addTo(map);
 
 var sotoLocalizaVar = L.geoJson(sotoLocaliza, {style: sotoLocalizaStyle}).addTo(map);
 var limAdmVar = L.geoJson(lim_adm, {style: limAdmStyle}).addTo(map);
@@ -299,25 +305,47 @@ var lagunasVAR = L.geoJson(lagunas, {style: lagunasStyle});
 var hidrografia = L.layerGroup([RIOpolVAR, RIOlineVAR, lagunasVAR]).addTo(map);
 
 //humano
-var CLC2018_urbano_corredor_disVAR = L.geoJson(CLC2018_urbano_corredor_dis, {style: CLC2018_urbano_corredor_disStyle}).addTo(map)
-var A2Var = L.geoJson(A2, {style: A2Style}).addTo(map);
+var CLC2018_urbano_corredor_disVAR = L.geoJson(CLC2018_urbano_corredor_dis, {style: CLC2018_urbano_corredor_disStyle})
 
+var A2Var = L.geoJson(A2, {style: A2Style});
+var FFCCaveVAR = L.geoJson(FFCCave, {style: FFCCStyle});
+var FFCCconvVAR = L.geoJson(FFCCconv, {style: FFCCStyle});
 
+var infraestructuras = L.layerGroup([A2Var, FFCCaveVAR, FFCCconvVAR, CLC2018_urbano_corredor_disVAR])
 //medio ambiente
 var redNaturaVar = L.geoJson(redNatura, {style: rnStyle, onEachFeature: popupRN});
 var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {style: ecosistemasStyle, onEachFeature: popupEco});
+
+//servicios WMS
+var osm = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+  '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+  'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+  id: 'mapbox.streets',
+});
+
+var urbanismo = L.tileLayer.wms("https://idem.madrid.org:443/geoidem/UsoDelSuelo/VPLA_V_CLASIFICACION/wms", {
+    layers: 'VPLA_V_CLASIFICACION',
+    format: 'image/png',
+    transparent: true,
+    attribution: "Información geográfica de la Comunidad de Madrid. Acceso público y gratuito en www.madrid.org/cartografia/idem/.",
+    crs: L.CRS.EPSG4326,
+});
 
 //Control de capas---------------------------------------------------
 
 var baseLayers = {
   "Fotografía aérea (PNOA)": Spain_PNOA_Ortoimagen,
   "Open Street Maps": osm,
+  "Outdoors Maps": outmap
 };
 
 var overlayers = {
+  "Infraestructuras humanas": infraestructuras,
   "Lugares de interés": interes,
   "Red Natura 2000": redNaturaVar,
   "Ecosistemas": ecosistemasCAMVar,
+  "Urbanismo": urbanismo
 };
 
 L.control.layers(baseLayers, overlayers,{
