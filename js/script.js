@@ -28,6 +28,14 @@ var osm2 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?acc
   minZoom: 8,
   maxZoom: 8
 });
+
+///////////////const swoopy = L.swoopyArrow([40.55659, -3.42155], [40.30833, -3.53279], {
+///////////////  label: 'Hi!',
+///////////////  labelFontSize: 12,
+///////////////  iconAnchor: [20, 10],
+///////////////  iconSize: [20, 16]
+///////////////}).addTo(map);
+
 //Localización del usuario en el mapa
 
 ////////////////map.locate({watch: true, setView: true, maxZoom: 16});
@@ -127,15 +135,17 @@ var sotoLocalizaStyle = {
 };
 
 var limAdmStyle = {
-  color: 'black',
+  color: '#9DBD00',
   fill: false,
   weight: 3,
+  dashArray: "5 15",
+  opacity:1
 };
 
 var CLC2018_urbano_corredor_disStyle = {
   color: 'black',
   fillColor: '#A06192',
-  weight: 2.5,
+  weight: 1.5,
   fillOpacity: 0.5,
 }
 
@@ -254,6 +264,7 @@ var ecosistemasStyle = function(feature) {
 var RIOpolStyle = {
   color: '#3B90F7',
   opacity: 1,
+  fillOpacity: 1,
   weight:3,
 };
 
@@ -279,10 +290,25 @@ var A2Style ={
   color: 'red',
   weight: 3,
 };
+var A2Style2 ={
+  opacity: 0.8,
+  color: 'yellow',
+  weight: 1,
+};
 
-var FFCCStyle = {
+var FFCCaveStyle = {
   color: 'black',
+  opacity: 1,
   weight: 3,
+  dashArray: "5 1 2"
+};
+
+var FFCCconvStyle = {
+  color: 'black',
+  opacity: 1,
+  weight: 3,
+  dashArray: "5 2 2 3"
+
 };
 
 //Layers-------------------------------------------------------------
@@ -299,22 +325,33 @@ var limAdmVar = L.geoJson(lim_adm, {style: limAdmStyle}).addTo(map);
 
 //hidrografia
 var RIOpolVAR = L.geoJson(RIOpol, {style: RIOpolStyle});
-var RIOlineVAR = L.geoJson(RIOline, {style: RIOlineStyle, onEachFeature: popupRIO});
+var RIOlineVAR = L.geoJson(RIOline, {
+  style: RIOlineStyle,
+  onEachFeature: popupRIO
+});
 var lagunasVAR = L.geoJson(lagunas, {style: lagunasStyle});
 
 var hidrografia = L.layerGroup([RIOpolVAR, RIOlineVAR, lagunasVAR]).addTo(map);
 
 //humano
-var CLC2018_urbano_corredor_disVAR = L.geoJson(CLC2018_urbano_corredor_dis, {style: CLC2018_urbano_corredor_disStyle})
+var CLC2018_urbano_corredor_disVAR = L.geoJson(CLC2018_urbano_corredor_dis, {style: CLC2018_urbano_corredor_disStyle});
 
 var A2Var = L.geoJson(A2, {style: A2Style});
-var FFCCaveVAR = L.geoJson(FFCCave, {style: FFCCStyle});
-var FFCCconvVAR = L.geoJson(FFCCconv, {style: FFCCStyle});
+var A2Var2 = L.geoJson(A2, {style: A2Style2});
+var FFCCaveVAR = L.geoJson(FFCCave, {style: FFCCaveStyle});
+var FFCCconvVAR = L.geoJson(FFCCconv, {style: FFCCconvStyle});
 
-var infraestructuras = L.layerGroup([A2Var, FFCCaveVAR, FFCCconvVAR, CLC2018_urbano_corredor_disVAR])
+var infraestructuras = L.layerGroup([A2Var, A2Var2, FFCCaveVAR, FFCCconvVAR, CLC2018_urbano_corredor_disVAR])
 //medio ambiente
-var redNaturaVar = L.geoJson(redNatura, {style: rnStyle, onEachFeature: popupRN});
-var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {style: ecosistemasStyle, onEachFeature: popupEco});
+var redNaturaVar = L.geoJson(redNatura, {
+  style: rnStyle,
+  onEachFeature: popupRN
+});
+var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {
+  style: ecosistemasStyle,
+  onEachFeature: popupEco
+})
+
 
 //servicios WMS
 var osm = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -345,7 +382,7 @@ var overlayers = {
   "Lugares de interés": interes,
   "Red Natura 2000": redNaturaVar,
   "Ecosistemas": ecosistemasCAMVar,
-  "Urbanismo": urbanismo
+  "Urbanismo": urbanismo,
 };
 
 L.control.layers(baseLayers, overlayers,{
@@ -354,9 +391,17 @@ L.control.layers(baseLayers, overlayers,{
 }).addTo(map);
 
 //Control de plugins-------------------------------------------------
-var miniMap = new L.Control.MiniMap(osm2, {toggleDisplay: true, position: 'bottomright'}).addTo(map);
+var miniMap = new L.Control.MiniMap(osm2, {
+  toggleDisplay: true,
+  position: 'bottomright'
+}).addTo(map);
 
-L.control.scale({maxWidth: 100, metric: true, imperial: false, position: 'bottomleft'}).addTo(map);
+L.control.scale({
+  maxWidth: 100,
+  metric: true,
+  imperial: false,
+  position: 'bottomleft'
+}).addTo(map);
 
 map.addControl(new L.Control.Fullscreen({
   position: "topleft"
