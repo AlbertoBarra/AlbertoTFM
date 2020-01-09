@@ -131,6 +131,7 @@ var interes = L.layerGroup([ruinasMarker, renfeStations]);
 var sotoLocalizaStyle = {
   color: 'red',
   opacity: 0.8,
+  fillOpacity: 0.1,
   weight: 3,
 };
 
@@ -267,7 +268,6 @@ var RIOpolStyle = {
   fillOpacity: 1,
   weight:3,
 };
-
 var RIOlineStyle = {
   color: '#3B90F7',
   opacity: 1,
@@ -295,15 +295,13 @@ var A2Style2 ={
   color: 'yellow',
   weight: 1,
 };
-
-var FFCCaveStyle = {
+var FFCCconvStyle = {
   color: 'black',
   opacity: 1,
   weight: 3,
   dashArray: "5 1 2"
 };
-
-var FFCCconvStyle = {
+var FFCCaveStyle = {
   color: 'black',
   opacity: 1,
   weight: 3,
@@ -324,7 +322,10 @@ var sotoLocalizaVar = L.geoJson(sotoLocaliza, {style: sotoLocalizaStyle}).addTo(
 var limAdmVar = L.geoJson(lim_adm, {style: limAdmStyle}).addTo(map);
 
 //hidrografia
-var RIOpolVAR = L.geoJson(RIOpol, {style: RIOpolStyle});
+var RIOpolVAR = L.geoJson(RIOpol, {
+  style: RIOpolStyle,
+  onEachFeature: popupRIO
+});
 var RIOlineVAR = L.geoJson(RIOline, {
   style: RIOlineStyle,
   onEachFeature: popupRIO
@@ -350,17 +351,17 @@ var redNaturaVar = L.geoJson(redNatura, {
 var ecosistemasCAMVar = L.geoJson(ecosistemasCAM, {
   style: ecosistemasStyle,
   onEachFeature: popupEco
-})
-
-
-//servicios WMS
-var osm = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-  '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-  'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-  id: 'mapbox.streets',
 });
 
+//servicios WMS
+var ortoHist = L.tileLayer.wms("http://www.ign.es/wms/pnoa-historico?SERVICE=WMS&", {
+    layers: 'AMS_1956-1957',
+    format: 'image/png',
+    transparent: true,
+    attribution: 'Map data &copy; <a href="http://www.ign.es">Instituto Geográfico Nacional</a>',
+    id: 'mapbox.streets',
+    crs: L.CRS.EPSG4326,
+});
 var urbanismo = L.tileLayer.wms("https://idem.madrid.org:443/geoidem/UsoDelSuelo/VPLA_V_CLASIFICACION/wms", {
     layers: 'VPLA_V_CLASIFICACION',
     format: 'image/png',
@@ -370,11 +371,10 @@ var urbanismo = L.tileLayer.wms("https://idem.madrid.org:443/geoidem/UsoDelSuelo
 });
 
 //Control de capas---------------------------------------------------
-
 var baseLayers = {
   "Fotografía aérea (PNOA)": Spain_PNOA_Ortoimagen,
-  "Open Street Maps": osm,
-  "Outdoors Maps": outmap
+  "Outdoors Maps": outmap,
+  "Vuelo americano (Serie B, 1956-1957)": ortoHist
 };
 
 var overlayers = {
@@ -390,7 +390,10 @@ L.control.layers(baseLayers, overlayers,{
   collapsed:true
 }).addTo(map);
 
+//Control de leyenda-------------------------------------------------
+
 //Control de plugins-------------------------------------------------
+L.control.mousePosition({position: 'bottomright'}).addTo(map);
 var miniMap = new L.Control.MiniMap(osm2, {
   toggleDisplay: true,
   position: 'bottomright'
@@ -406,5 +409,3 @@ L.control.scale({
 map.addControl(new L.Control.Fullscreen({
   position: "topleft"
 }));
-
-L.control.mousePosition({position: 'bottomright'}).addTo(map);
